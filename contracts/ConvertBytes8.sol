@@ -12,11 +12,6 @@ pragma solidity ^0.5.0;
  * @notice are subjects to Swiss Law without reference to its conflicts of law rules.
  *
  * Error messages
- * SC01: No ETH must be provided for the challenge
- * SC02: Target must not be null
- * SC03: Execution call must be successful
- * SC04: Challenge must be active
- * SC05: Challenge must be no more than challenge bytes
  *
  * @author Cyril Lapinte - <cyril.lapinte@mtpelerin.com>
  */
@@ -25,19 +20,19 @@ contract ConvertBytes8 {
   function convertBytesToBytes8(bytes memory inBytes) public pure returns (bytes8 outBytes8) {
     uint256 maxByteAvailable = inBytes.length < 8 ? inBytes.length : 8;
     for (uint256 i = 0; i < maxByteAvailable; i++) {
-        bytes8 tempBytes8 = inBytes[i];
-        tempBytes8 = tempBytes8 >> (8 * i);
-        outBytes8 = outBytes8 | tempBytes8;
+      bytes8 tempBytes8 = inBytes[i];
+      tempBytes8 = tempBytes8 >> (8 * i);
+      outBytes8 = outBytes8 | tempBytes8;
     }
   }
 
   function convertBytesToBytes8Asm(bytes memory inBytes) public pure returns (bytes8 outBytes8) {
     if (inBytes.length == 0) {
-        return 0x0;
+      return 0x0;
     }
 
     assembly {
-        outBytes8 := mload(add(inBytes, 32))
+      outBytes8 := mload(add(inBytes, 32))
     }
   }
 
@@ -45,7 +40,7 @@ contract ConvertBytes8 {
     (uint256 length, bytes32 outBytesPtr, bytes32 outBytes32, bytes8 outBytes8)
   {
     if (inBytes.length == 0) {
-        return (0, 0x0, 0x0, 0x0);
+      return (0, 0x0, 0x0, 0x0);
     }
 
     assembly {
