@@ -4,16 +4,9 @@ pragma solidity ^0.5.0;
 /**
  * @title CodeManipulation
  *
- * @notice Copyright © 2016 - 2019 Mt Pelerin Group SA - All Rights Reserved
- * @notice This content cannot be used, copied or reproduced in part or in whole
- * @notice without the express and written permission of Mt Pelerin Group SA.
- * @notice Written by *Mt Pelerin Group SA*, <info@mtpelerin.com>
- * @notice All matters regarding the intellectual property of this code or software
- * @notice are subjects to Swiss Law without reference to its conflicts of law rules.
- *
  * Error messages
  *
- * @author Cyril Lapinte - <cyril.lapinte@mtpelerin.com>
+ * @author Cyril Lapinte - <cyril.lapinte@gmail.com>
  */
 contract CodeManipulation {
 
@@ -26,10 +19,15 @@ contract CodeManipulation {
   function self() public pure returns (bytes memory code) {
     assembly {
       let size := codesize
-      code := mload(0x40)
+      code := mload(0x40) // Allocate free memory
 
+      // allocate size memory for code variable
       mstore(0x40, add(code, and(add(add(size, 0x20), 0x1f), not(0x1f))))
+
+      // first byte32 put the size of code
       mstore(code, size)
+
+      // copy contract code into code variable in memory
       codecopy(add(code, 0x20), 0, size)
     }
   }

@@ -1,7 +1,7 @@
 FROM ethereum/solc:stable as build
 
 FROM alpine
-LABEL name=mtpelerin/truffle
+LABEL name=sirhill/truffle
 
 COPY --from=build /usr/bin/solc /usr/bin/solc
 
