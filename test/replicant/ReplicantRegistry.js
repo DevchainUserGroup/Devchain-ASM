@@ -1,7 +1,7 @@
 'user strict';
 
-const assertRevert = require('./helpers/assertRevert');
-const ReplicantRegistry = artifacts.require('../contracts/ReplicantRegistry.sol');
+const assertRevert = require('../helpers/assertRevert');
+const ReplicantRegistry = artifacts.require('ReplicantRegistry.sol');
 
 contract('ReplicantRegistry', function (accounts) {
   let registry;

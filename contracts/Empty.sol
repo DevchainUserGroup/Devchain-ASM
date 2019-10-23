@@ -10,7 +10,7 @@ pragma solidity ^0.5.0;
  */
 contract Empty {
 
-  function getThis() public pure returns (address) {
+  function getThis() public view returns (address) {
     return address(this);
   }
 
